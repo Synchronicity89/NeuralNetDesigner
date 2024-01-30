@@ -257,5 +257,22 @@ namespace UnmanagedNNTest
 			// Assert
 			Assert::AreEqual(2, numRows);
 		}
+
+
+        TEST_METHOD(ValidateMatrixSizeTest)
+        {
+            // Arrange
+            std::vector<int> layers1 = { 2, 3, 1 };
+            std::vector<int> layers2 = { 2, 2, 2 };
+            std::vector<int> layers3 = { 1, 1, 1 };
+            NeuralNetwork neuralNetwork1(layers1);
+            NeuralNetwork neuralNetwork2(layers2);
+            NeuralNetwork neuralNetwork3(layers3);
+
+            // Act & Assert
+            Assert::ExpectException<std::invalid_argument>([&]() { neuralNetwork1.validateMatrixSize(); });
+            Assert::ExpectException<std::invalid_argument>([&]() { neuralNetwork2.validateMatrixSize(); });
+            Assert::ExpectException<std::invalid_argument>([&]() { neuralNetwork3.validateMatrixSize(); });
+        }
 	};
 }

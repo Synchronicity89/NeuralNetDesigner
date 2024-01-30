@@ -91,7 +91,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /R "C:\Users\baker\source\repos\NeuralNetDesigner\x64\Debug\UnmanagedNN.*" "C:\Users\baker\source\repos\NeuralNetDesigner\NeuralNetDesigner\bin\Debug\net8.0-windows\"
+      <Command>xcopy /Y /R "..\..\NeuralNetDesigner\x64\Debug\UnmanagedNN.*" "..\..\NeuralNetDesigner\NeuralNetDesigner\bin\Debug\net8.0-windows\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -128,7 +128,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /R "C:\Users\baker\source\repos\NeuralNetDesigner\x64\Debug\UnmanagedNN.*" "C:\Users\baker\source\repos\NeuralNetDesigner\NeuralNetDesigner\bin\Debug\net8.0-windows\"
+      <Command>xcopy /Y /R "..\..\NeuralNetDesigner\x64\Debug\UnmanagedNN.*" "..\..\NeuralNetDesigner\NeuralNetDesigner\bin\Debug\net8.0-windows\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
