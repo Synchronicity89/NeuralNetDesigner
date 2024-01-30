@@ -1,7 +1,7 @@
 # NeuralNetDesigner
 You can debug the UnmanagedNN DLL project using the unit tests, however...
 In order to debug the C++ DLL project UnmanagedNN as it is used by the WPF which loads the C++/CLI assembly which loads the C++ DLL, you have to do a manual step that is not stored in repo source code
-- Open the properties of that project,
+- Open the properties of the UnmanagedNN project.  This is the only project properties you need to tweak
 - Find the Debugging tab.  You are going to specify the host app that will be loading both the C++/CLI project DeepLearning which in turn will load UnmanagedNN.dll.  No spaces so no quotes.  Chose the Debug configuration.
 - Put text in the command text box: ../../$(SolutionName)/bin/$(Configuration)/net8.0-windows/$(SolutionName).exe
 - Put text in the working directory: $(TargetDir)
