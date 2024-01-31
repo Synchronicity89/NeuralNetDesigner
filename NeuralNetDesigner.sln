@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedNN", "UnmanagedNN\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedNNTest", "UnmanagedNNTest\UnmanagedNNTest.vcxproj", "{FFF1499A-98D7-419F-A812-7560176D7A3E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedNNCmd", "UnmanagedNNCmd\UnmanagedNNCmd.vcxproj", "{D36E0342-29C2-4541-9E3E-7CF4B61A016C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{FFF1499A-98D7-419F-A812-7560176D7A3E}.Release|x64.Build.0 = Release|x64
 		{FFF1499A-98D7-419F-A812-7560176D7A3E}.Release|x86.ActiveCfg = Release|Win32
 		{FFF1499A-98D7-419F-A812-7560176D7A3E}.Release|x86.Build.0 = Release|Win32
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|Any CPU.Build.0 = Debug|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|x64.ActiveCfg = Debug|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|x64.Build.0 = Debug|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|x86.ActiveCfg = Debug|Win32
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Debug|x86.Build.0 = Debug|Win32
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|Any CPU.ActiveCfg = Release|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|Any CPU.Build.0 = Release|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|x64.ActiveCfg = Release|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|x64.Build.0 = Release|x64
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|x86.ActiveCfg = Release|Win32
+		{D36E0342-29C2-4541-9E3E-7CF4B61A016C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

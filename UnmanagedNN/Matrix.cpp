@@ -6,21 +6,21 @@
 // implement all the methods declared in the header file
 // Constructor to create a matrix of given dimensions
 Matrix::Matrix(int rows, int cols) {
-    // Set dimensions
-    this->rows = rows;
-    this->cols = cols;
-    // Resize data
-    data.resize(rows);
-    for (int i = 0; i < rows; ++i) {
-        data[i].resize(cols);
-    }
+	// Set dimensions
+	this->rows = rows;
+	this->cols = cols;
+	// Resize data
+	data.resize(rows);
+	for (int i = 0; i < rows; ++i) {
+		data[i].resize(cols);
+	}
 
-    // Validation loop
-    for (int i = 0; i < rows; ++i) {
-        if (data[i].size() != cols) {
-            throw std::runtime_error("Data field not resized correctly");
-        }
-    }
+	// Validation loop
+	for (int i = 0; i < rows; ++i) {
+		if (data[i].size() != cols) {
+			throw std::runtime_error("Data field not resized correctly");
+		}
+	}
 }
 
 Matrix::Matrix()
@@ -93,7 +93,7 @@ Matrix Matrix::operator*(double scalar) {
 
 Matrix Matrix::operator+(double scalar)
 {
-// Create new matrix
+	// Create new matrix
 	Matrix result(rows, cols);
 	// Add scalar to matrix
 	for (int i = 0; i < rows; ++i) {
@@ -102,6 +102,17 @@ Matrix Matrix::operator+(double scalar)
 		}
 	}
 	return result;
+}
+
+Matrix& Matrix::operator<<(double value)
+{
+	// Add scalar to matrix
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; j++) {
+			data[i][j] = data[i][j] + value;
+		}
+	}
+	return *this;
 }
 
 // Utility functions
@@ -126,6 +137,15 @@ Matrix Matrix::transpose(const Matrix& matrix) {
 	return result;
 }
 
+void Matrix::setZero()
+{
+	for (int i = 0; i < rows; ++i) {
+		for (int j = 0; j < cols; j++) {
+			data[i][j] = 0;
+		}
+	}
+}
+
 // Access elements
 double& Matrix::operator()(int row, int col) {
 	return data[row][col];
@@ -148,3 +168,14 @@ int Matrix::getCols() const {
 std::vector<std::vector<double>> Matrix::getData() const {
 	return data;
 }
+
+//std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
+//{
+//	for (int i = 0; i < matrix.getRows(); ++i) {
+//		for (int j = 0; j < matrix.getCols(); j++) {
+//			os << matrix(i, j) << " ";
+//		}
+//		os << std::endl;
+//	}
+//	return os;
+//}
