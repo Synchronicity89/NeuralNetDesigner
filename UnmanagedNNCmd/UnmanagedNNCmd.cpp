@@ -12,10 +12,19 @@ bool sameDimensions(const Matrix& m1, const Matrix& m2) {
 }
 
 // A function to check if a vector of matrices have the same dimensions as a vector of integers
-bool sameDimensions(const std::vector<Matrix>& matrices, const std::vector<int>& sizes) {
-    if (matrices.size() != sizes.size()) return false;
+bool sameDimensionsRows(const std::vector<Matrix>& matrices, const std::vector<int>& sizes) {
+    //if (matrices.size() != sizes.size()) return false;
     for (int i = 0; i < matrices.size(); i++) {
-        if (matrices[i].getCols() != sizes[i]) return false;
+        if (matrices[i].getRows() != sizes[i]) return false;
+    }
+    return true;
+}
+
+// A function to check if a vector of matrices have the same dimensions as a vector of integers
+bool sameDimensions(const std::vector<Matrix>& matrices, const std::vector<int>& sizes) {
+    //if (matrices.size() != sizes.size()) return false;
+    for (int i = 0; i < matrices.size(); i++) {
+        if (matrices[i].getRows() * matrices[i].getCols() != sizes[i]) return false;
     }
     return true;
 }
@@ -132,6 +141,38 @@ int main() {
         Matrix(1, 1) << 1,
         Matrix(1, 1) << 0
     };
+
+    // Use the global methods to check the dimensions of every vector, matrix and vector of matrices in nn
+    assert(sameDimensions(nn.weights, std::vector<int>{ 6, 3 })); // Check the dimensions of the weights
+
+    assert(sameDimensions(nn.biases, std::vector<int>{ 3, 1 })); // Check the dimensions of the biases
+    // on the nn object, call the forward propagation method using input as the input
+    nn.forwardPropagation(inputs[0]);
+    
+    assert(sameDimensions(nn.layers, std::vector<int>{ 2, 3, 1 })); // Check the dimensions of the layers
+
+    assert(sameDimensions(nn.weightGradients, std::vector<int>{ 6, 3 })); // Check the dimensions of the weight gradients
+
+    assert(sameDimensions(nn.biasGradients, std::vector<int>{ 3, 1 })); // Check the dimensions of the bias gradients
+
+    // Print the dimensions of the neural network
+    printDimensions(nn.weights);
+
+    printDimensions(nn.biases);
+
+    printDimensions(nn.layers);
+
+    printDimensions(nn.weightGradients);
+
+    printDimensions(nn.biasGradients);
+
+        // Print the dimensions of the input and output data
+
+        printDimensions(inputs);
+
+        printDimensions(outputs);
+
+
 
     // Train the neural network for 1000 epochs
     nn.train(inputs, outputs, 0.01, 1000);

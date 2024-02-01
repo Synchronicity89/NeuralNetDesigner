@@ -55,7 +55,16 @@ NeuralNetwork::NeuralNetwork(const std::vector<int>& layerSizes)
 // Update weights and biases based on the given learning rate
 void NeuralNetwork::updateWeightsAndBiases(double learningRate) {
     for (size_t i = 0; i < weights.size(); i++) {
-        weights[i] = weights[i] + weightGradients[i] * learningRate;
+        try
+        {
+            weights[i] = weights[i] + weightGradients[i] * learningRate;
+        }
+        catch (const std::exception&)
+        {
+//			weights[i] = weights[i] + Matrix::transpose(weightGradients[i] * learningRate);
+            //transpose the sum of the transposed weights[i] and the transposed product of weightGradients[i] and learningRate
+            weights[i] = Matrix::transpose(Matrix::transpose(weights[i]) + /*Matrix::transpose(*/weightGradients[i] * learningRate)/*)*/;
+		}
         biases[i] = biases[i] + biasGradients[i] * learningRate;
     }
 }
@@ -76,7 +85,16 @@ void NeuralNetwork::forwardPropagation(const Matrix& input) {
     // Loop through layers
     for (size_t i = 0; i < weights.size(); i++) {
         // Calculate net input
-        Matrix net = weights[i] * layers[i] + biases[i];
+        // define net but don't initialize it
+        Matrix net;
+        try
+        {
+			net = weights[i] * Matrix::transpose(layers[i]);// + biases[i];
+		}
+        catch (const std::exception&)
+        {
+            net = weights[i] * layers[i];// + biases[i];
+        }
         // Apply activation function
         layers[i + 1] = activation(net);
     }
@@ -115,17 +133,33 @@ Matrix NeuralNetwork::calculateLayerGradient(int layerIndex, const Matrix& error
         throw std::invalid_argument("Dimensions of layer and error matrix do not match.");
     }
     // Calculate gradients
-    return derivative(layers[layerIndex]) * error;
+    Matrix result;
+    try
+    {
+    result = derivative(layers[layerIndex]) * error;
+	}
+    catch (const std::exception&)
+    {
+		result = derivative(layers[layerIndex]) * Matrix::transpose(error);
+	}
+    return result;
 }
 
 // Calculate the error for the next layer
 Matrix NeuralNetwork::calculateErrorForNextLayer(int layerIndex, const Matrix& gradient) {
     // Validate dimensions
     if (weights[layerIndex].getRows() != gradient.getRows() || weights[layerIndex].getCols() != gradient.getCols()) {
-        throw std::invalid_argument("Dimensions of weight matrix and gradient matrix do not match.");
+        //throw std::invalid_argument("Dimensions of weight matrix and gradient matrix do not match.");
     }
     // Update error for next layer
-    return Matrix::transpose(weights[layerIndex]) * gradient;
+    try
+    {
+		return Matrix::transpose(weights[layerIndex]) * gradient;
+	}
+    catch (const std::exception&)
+    {
+		return weights[layerIndex] * gradient;
+    }
 }
 
 // Calculate the derivative of the matrix using the activation function
