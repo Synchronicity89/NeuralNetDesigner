@@ -38,7 +38,7 @@ struct ANNConfig {
   string weightsFile;
 };
 
-class NeuralNetwork
+class __declspec (dllexport) NeuralNetwork
 {
 public:
   NeuralNetwork(ANNConfig config);

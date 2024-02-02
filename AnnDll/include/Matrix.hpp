@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class Matrix
+class __declspec (dllexport) Matrix
 {
 public:
-  Matrix(int numRows, int numCols, bool isRandom); 
+  Matrix(int numRows, int numCols, bool isRandom = false); 
 
   Matrix *transpose();
   Matrix *copy();
@@ -25,6 +25,11 @@ public:
 
   int getNumRows() { return this->numRows; }
   int getNumCols() { return this->numCols; }
+
+  // Operator overloading
+  // Access elements - added by S89
+  double& operator()(int row, int col);
+  const double& operator()(int row, int col) const;
 
 private:
   double generateRandomNumber();

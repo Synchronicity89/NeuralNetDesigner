@@ -12,7 +12,7 @@ using namespace std;
 
 namespace utils
 {
-  class Math
+  class __declspec(dllexport) Math
   {
   public:
     static void multiplyMatrix(Matrix *a, Matrix *b, Matrix *c);

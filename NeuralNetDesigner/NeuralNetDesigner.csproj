@@ -10,11 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeepLearning\DeepLearning.vcxproj" />
-    <ProjectReference Include="..\UnmanagedNN\UnmanagedNN.vcxproj">
-      <Private>False</Private>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    <ProjectReference Include="..\AnnDll\AnnDll.vcxproj">
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\DeepLearning\DeepLearning.vcxproj" />
   </ItemGroup>
 
 </Project>

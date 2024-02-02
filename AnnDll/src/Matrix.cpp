@@ -57,3 +57,10 @@ void Matrix::printToConsole() {
   }
 }
 
+double& Matrix::operator()(int row, int col) {
+  return this->values.at(row).at(col);
+}
+
+const double& Matrix::operator()(int row, int col) const {
+  return this->values.at(row).at(col);
+}

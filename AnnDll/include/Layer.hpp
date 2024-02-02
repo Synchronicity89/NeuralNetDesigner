@@ -5,7 +5,7 @@
 #include "Neuron.hpp"
 #include "Matrix.hpp"
 
-class Layer
+class __declspec (dllexport) Layer
 {
 public:
   Layer(int size);

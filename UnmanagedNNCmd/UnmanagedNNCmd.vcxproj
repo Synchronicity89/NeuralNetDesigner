@@ -130,15 +130,15 @@
     <ClCompile Include="UnmanagedNNCmd.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnmanagedNN\UnmanagedNN.vcxproj">
-      <Project>{ddc209c3-53f7-4f37-a452-380bbda77849}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnnDll\AnnDll.vcxproj">
+      <Project>{c7c14e35-bc7e-428d-82c7-5fa73f7848ea}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

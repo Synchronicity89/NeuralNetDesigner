@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../UnmanagedNN/Matrix.h"
-#include "../UnmanagedNN/NeuralNetwork.h"
+#include "../AnnDll/include/Matrix.hpp"
+#include "../AnnDll/include/NeuralNetwork.hpp"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnmanagedNNTest

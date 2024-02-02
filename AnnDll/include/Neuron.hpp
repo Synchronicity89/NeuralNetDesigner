@@ -9,7 +9,7 @@
 #include <math.h>
 using namespace std;
 
-class Neuron
+class __declspec (dllexport) Neuron
 {
 public:
   Neuron(double val);

@@ -1,9 +1,3 @@
-#include <iostream>
-#include "..\UnmanagedNN\Matrix.h" // Assuming this is the header file for your  class
-#include "..\UnmanagedNN\NeuralNetwork.h" // Assuming this is the header file for your  class
-#include <cassert> // For using assert statements
-#include <vector>
-#include <cmath> // For using math functions
 #include "UnmanagedNNCmd.h"
 
 using namespace std;
@@ -112,11 +106,24 @@ int main() {
     input.push_back(1.0);
     input.push_back(0.0);
     input.push_back(1.0);
+    ANNConfig config;
+    config.topology = topology;
+    config.bias = 0.0;
+    config.learningRate = 0.01;
+    config.momentum = 0.0;
+    config.epoch = 1000;
+    config.hActivation = ANN_ACTIVATION::A_SIGM;
+    config.oActivation = ANN_ACTIVATION::A_SIGM;
+    config.cost = ANN_COST::COST_MSE;
+    config.trainingFile = "training.txt";
+    config.labelsFile = "labels.txt";
+    config.weightsFile = "weights.txt";
 
-    NeuralNetwork *nn = new NeuralNetwork(topology);
+
+    NeuralNetwork *nn = new NeuralNetwork(config);
     nn->setCurrentInput(input);
 
-    nn->printToConsole();
+    //nn->printToConsole();
 
 
 //    // Set the random seed for reproducibility
