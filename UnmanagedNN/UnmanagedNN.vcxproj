@@ -149,6 +149,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="MultiplyMatrix.h" />
     <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="pch.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MultiplyMatrix.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="pch.cpp">

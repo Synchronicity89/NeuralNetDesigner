@@ -46,8 +46,8 @@ public:
     double& operator()(int row, int col);
     const double& operator()(int row, int col) const;
     // Getters
-    int getRows() const;
-    int getCols() const;
+    int getNumRows() const;
+    int getNumCols() const;
     vector<vector<double>>  getData() const;
     double getValue(int row, int col) { return this->values.at(row).at(col); }
     // Setters

@@ -163,10 +163,10 @@ double Matrix::generateRandomNumber(double min, double max)
 
 // transpose function
 Matrix Matrix::transpose(const Matrix& matrix) {
-	Matrix result(matrix.getCols(), matrix.getRows()); // Fix: Swap rows and cols in the constructor
+	Matrix result(matrix.getNumCols(), matrix.getNumRows()); // Fix: Swap rows and cols in the constructor
 	// Transpose matrix
-	for (int i = 0; i < matrix.getRows(); ++i) { // Fix: Iterate over rows instead of cols
-		for (int j = 0; j < matrix.getCols(); j++) { // Fix: Iterate over cols instead of rows
+	for (int i = 0; i < matrix.getNumRows(); ++i) { // Fix: Iterate over rows instead of cols
+		for (int j = 0; j < matrix.getNumCols(); j++) { // Fix: Iterate over cols instead of rows
 			result(j, i) = matrix(i, j); // Fix: Swap indices for accessing elements
 		}
 	}
@@ -193,11 +193,11 @@ const double& Matrix::operator()(int row, int col) const {
 
 // Getters
 
-int Matrix::getRows() const {
+int Matrix::getNumRows() const {
 	return numRows;
 }
 
-int Matrix::getCols() const {
+int Matrix::getNumCols() const {
 	return numCols;
 }
 

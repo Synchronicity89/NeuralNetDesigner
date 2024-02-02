@@ -12,15 +12,15 @@ namespace UnmanagedNNTest
 		TEST_METHOD(MatrixConstructorWithDimensions)
 		{
 			Matrix matrix(2, 3);
-			Assert::AreEqual(matrix.getRows(), 2);
-			Assert::AreEqual(matrix.getCols(), 3);
+			Assert::AreEqual(matrix.getNumRows(), 2);
+			Assert::AreEqual(matrix.getNumCols(), 3);
 		}
 
 		TEST_METHOD(MatrixDefaultConstructor)
 		{
 			Matrix matrix;
-			Assert::AreEqual(matrix.getRows(), 0);
-			Assert::AreEqual(matrix.getCols(), 0);
+			Assert::AreEqual(matrix.getNumRows(), 0);
+			Assert::AreEqual(matrix.getNumCols(), 0);
 		}
 
 		TEST_METHOD(MatrixAddition)
@@ -149,8 +149,8 @@ namespace UnmanagedNNTest
 
 			Matrix result = Matrix::transpose(matrix);
 
-			Assert::AreEqual(result.getRows(), 3);
-			Assert::AreEqual(result.getCols(), 2);
+			Assert::AreEqual(result.getNumRows(), 3);
+			Assert::AreEqual(result.getNumCols(), 2);
 			Assert::AreEqual(result(0, 0), 1.0);
 			Assert::AreEqual(result(0, 1), 4.0);
 			Assert::AreEqual(result(1, 0), 2.0);
