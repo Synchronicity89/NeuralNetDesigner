@@ -32,3 +32,17 @@ NeuralNetwork::NeuralNetwork(vector<int> topology)
 		this->weightMatrices.push_back(matrix);
 	}
 }
+
+void NeuralNetwork::printToConsole()
+{
+	for (int i = 0; i < this->layers.size(); i++)
+	{
+		if (i == 0) {
+			Matrix* m = this->layers.at(i)->matrixifyVals();
+		}
+		else
+		{
+			Matrix *m = this->layers.at(i)->matrixifyActivatedVals();
+		}
+	}
+}

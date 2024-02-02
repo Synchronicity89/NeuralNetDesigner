@@ -28,7 +28,7 @@ Matrix* Layer::matrixifyVals()
 	for (int i = 0; i < this->neurons.size(); i++)
 	{
 		m->setValue(
-			1, 
+			0, 
 			i, 
 			this->neurons.at(i)->getVal()
 		);
@@ -42,7 +42,7 @@ Matrix* Layer::matrixifyActivatedVals()
 	for (int i = 0; i < this->neurons.size(); i++)
 	{
 		m->setValue(
-			1, 
+			0, 
 			i, 
 			this->neurons.at(i)->getActivatedVal()
 		);
@@ -56,7 +56,7 @@ Matrix* Layer::matrixifyDerivedVals()
 	for (int i = 0; i < this->neurons.size(); i++)
 	{
 		m->setValue(
-			1, 
+			0, 
 			i, 
 			this->neurons.at(i)->getDerivedVal()
 		);

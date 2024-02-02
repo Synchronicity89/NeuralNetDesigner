@@ -10,7 +10,7 @@ class __declspec(dllexport) NeuralNetwork {
 public:
     void setCurrentInput(vector<double> input);
     NeuralNetwork(vector<int> topology);
-
+	void printToConsole();
 
 
 

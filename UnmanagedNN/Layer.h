@@ -12,12 +12,11 @@ class Layer
 	double getVal(int index);
 	int getSize() { return this->size; }
 	
-	Matrix *matrixify();
-private:
-	int size;
-	vector<Neuron *> neurons;
 	Matrix* matrixifyVals();
 	Matrix* matrixifyActivatedVals();
 	Matrix* matrixifyDerivedVals();
+private:
+	int size;
+	vector<Neuron *> neurons;
 };
 
