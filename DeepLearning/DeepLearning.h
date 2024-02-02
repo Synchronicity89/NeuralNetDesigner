@@ -14,7 +14,7 @@ public:
 		{
 			// instantiate a new neural network with 3 layers
 			NeuralNetwork nn({ 2, 2, 2 });
-			nn.predict({ 1, 2 });
+			//nn.predict({ 1, 2 });
 			return a + b;
 
 		}

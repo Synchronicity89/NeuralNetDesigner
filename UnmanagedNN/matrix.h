@@ -6,13 +6,17 @@
 #include <random>
 #include <string>
 
+using namespace std;
 
 class __declspec(dllexport) Matrix {
 public:
     // Constructor to create a matrix of given dimensions
-    Matrix(int rows, int cols);
+    Matrix(int numRows, int numCols, bool isRandom = false);
     // Default constructor
     Matrix();
+
+    // Print operations
+    void printToConsole();
 
     // Basic operations
     Matrix operator+(const Matrix& other);
@@ -25,12 +29,15 @@ public:
     // Compound operations
     Matrix& operator<<(double value);
     // Matrix prediction = nn.predict(inputs[i]); // Get the prediction of the neural network for the input
-    // std::cout << "Prediction: " << prediction << std::endl;
+    // cout << "Prediction: " << prediction << endl;
     // a << operator to output the matrix to the console
-    //friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+    //friend ostream& operator<<(ostream& os, const Matrix& matrix);
 
     // Utility functions
     void applyFunction(double (*function)(double)); // Apply function element-wise
+    Matrix *transpose(); // Transpose the matrix
+    double generateRandomNumber(double min = 0, double max = 1); // Generate a random number between min and max
+
     static Matrix transpose(const Matrix& matrix);
     // setZero function to set all elements to 0
     void setZero();
@@ -41,9 +48,11 @@ public:
     // Getters
     int getRows() const;
     int getCols() const;
-    std::vector<std::vector<double>>  getData() const;
+    vector<vector<double>>  getData() const;
+    // Setters
+    void setValue(int row, int col, double value);
 
 private:
-    std::vector<std::vector<double>> data;
-    int rows, cols;
+    vector<vector<double>> values;
+    int numRows, numCols;
 };
