@@ -1,10 +1,12 @@
 # NeuralNetDesigner
-You can debug the UnmanagedNN DLL project using the unit tests, however...
-In order to debug the C++ DLL project UnmanagedNN as it is used by the WPF which loads the C++/CLI assembly which loads the C++ DLL, you have to do a manual step that is not stored in repo source code
-- Open the properties of the UnmanagedNN project.  This is the only project properties you need to tweak
-- Find the Debugging tab.  You are going to specify the host app that will be loading both the C++/CLI project DeepLearning which in turn will load UnmanagedNN.dll.  No spaces so no quotes.  Chose the Debug configuration.
+You can debug the unmanaged NN DLL project, AnnDll, using the unit tests and console app, however...
+In order to debug the C++ DLL project UnmanagedNN as it is used by the WPF EXE project named the same as the solution, which loads the C++/CLI assembly, DeepLearning.dll, which loads the AnnDll.DLL, you have to do a manual step that is not stored in repo source code
+- Open the properties of the AnnDll project.  This is the only project properties you need to tweak
+- Find the Debugging tab.  You are going to specify the host app that will be loading both the C++/CLI project DeepLearning which in turn will load AnnDll.dll.  No spaces so no quotes.  Chose the Debug configuration.
 - Put text in the command text box: ../../$(SolutionName)/bin/$(Configuration)/net8.0-windows/$(SolutionName).exe
 - Put text in the working directory: $(TargetDir)
-- Always rebuilding everything because the WPF app NeuralNetDesigner.exe has a choice from where to load the UnmanagedNN.DLL from
+- Always rebuilding everything because the WPF app NeuralNetDesigner.exe has a choice from where to load the AnnDll.DLL from
   - The TargetDir of the WPF project NeuralNetDesigner
-  - The TargetDir of the DLL project UnmanagedNN 
+  - The TargetDir of the DLL project AnnDll 
+
+Note: currently, setting the NeuralNetDesigner WPF EXE project as the startup project will not work right because, during the build, the AnnDll.Dll is not copied to a folder where the exe can find it.  We'll need to add a build event if we want that to be automated.  The symptom will be that DeepLeaning.dll doesn't load (which is because it can't load one of its dependencies AnnDll.Dll)
