@@ -54,13 +54,23 @@ void NeuralNetwork::printToConsole()
 {
 	for (int i = 0; i < this->layers.size(); i++)
 	{
+		cout << "LAYER: " << i << endl;
 		if (i == 0) {
 			Matrix* m = this->layers.at(i)->matrixifyVals();
+			m->printToConsole();
 		}
 		else
 		{
 			Matrix *m = this->layers.at(i)->matrixifyActivatedVals();
+			m->printToConsole();
 		}
+		cout << "==============================" << endl;
+		if (i != this->layers.size() - 1)
+		{
+			cout << "Weight Matrix between layer " << i << " and layer " << i + 1 << ":" << endl;
+			this->getWeightMatrix(i)->printToConsole();
+		}
+		cout << "==============================" << endl;
 	}
 }
 

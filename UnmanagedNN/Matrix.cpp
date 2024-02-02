@@ -42,7 +42,10 @@ Matrix::Matrix()
 void Matrix::printToConsole() {
 	for (int i = 0; i < numRows; ++i) {
 		for (int j = 0; j < numCols; j++) {
-			cout << this->values.at(i).at(j) << "\t\t";
+			auto number = values[i][j];
+			// reduce the number of decimal places to 4
+			cout.precision(4);
+			cout << number << "\t\t";
 		}
 		cout << endl;
 	}
