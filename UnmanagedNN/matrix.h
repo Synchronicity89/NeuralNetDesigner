@@ -49,6 +49,7 @@ public:
     int getRows() const;
     int getCols() const;
     vector<vector<double>>  getData() const;
+    double getValue(int row, int col) { return this->values.at(row).at(col); }
     // Setters
     void setValue(int row, int col, double value);
 
