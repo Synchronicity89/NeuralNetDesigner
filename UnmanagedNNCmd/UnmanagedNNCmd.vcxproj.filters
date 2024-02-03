@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="x64\Debug\configNN.dist" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h">

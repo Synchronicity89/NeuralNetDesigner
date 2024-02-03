@@ -11,7 +11,7 @@ using namespace std;
 
 namespace utils
 {
-  class Misc
+  class __declspec(dllexport) Misc
   {
   public:
     static vector< vector<double> > fetchData(string path);

@@ -131,6 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="x64\Debug\configNN.dist">
+      <DeploymentContent>true</DeploymentContent>
+      <FileType>Text</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h" />

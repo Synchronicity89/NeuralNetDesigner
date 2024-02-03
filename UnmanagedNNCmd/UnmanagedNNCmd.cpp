@@ -1,4 +1,5 @@
 #include "UnmanagedNNCmd.h"
+#include "../AnnDll/src/train.cpp"
 
 using namespace std;
 //// A function to check if two matrices have the same dimensions
@@ -95,36 +96,96 @@ using namespace std;
 //    return (double)correct / inputs.size(); // Return the accuracy as the ratio of correct predictions to total inputs
 //}
 //
+void printToConsole(NeuralNetwork *nn) {
+
+    for (int i = 0; i < nn->layers.size(); i++)
+    {
+        cout << "LAYER: " << i << endl;
+        if (i == 0) {
+            Matrix* m = nn->layers.at(i)->matrixifyVals();
+            m->printToConsole();
+        }
+        else
+        {
+            Matrix* m = nn->layers.at(i)->matrixifyActivatedVals();
+            m->printToConsole();
+        }
+        cout << "==============================" << endl;
+        if (i != nn->layers.size() - 1)
+        {
+            cout << "Weight Matrix between layer " << i << " and layer " << i + 1 << ":" << endl;
+            nn->getWeightMatrix(i)->printToConsole();
+        }
+        cout << "==============================" << endl;
+    }
+}
+
+
 int main() {
 
     vector<int> topology;
     topology.push_back(3);
-    topology.push_back(2);
+    topology.push_back(5);
     topology.push_back(3);
 
     vector<double> input;
-    input.push_back(1.0);
-    input.push_back(0.0);
-    input.push_back(1.0);
-    ANNConfig config;
-    config.topology = topology;
-    config.bias = 0.0;
-    config.learningRate = 0.01;
-    config.momentum = 0.0;
-    config.epoch = 1000;
-    config.hActivation = ANN_ACTIVATION::A_SIGM;
-    config.oActivation = ANN_ACTIVATION::A_SIGM;
-    config.cost = ANN_COST::COST_MSE;
-    config.trainingFile = "training.txt";
-    config.labelsFile = "labels.txt";
-    config.weightsFile = "weights.txt";
+    input.push_back(0.99);
+    input.push_back(0.01);
+    input.push_back(0.99);
+    //ANNConfig config;
+    //config.topology = topology;
+    //config.bias = 0.01;
+    //config.learningRate = 0.005;
+    //config.momentum = 0.3;
+    //config.epoch = 1000;
+    //config.hActivation = ANN_ACTIVATION::A_SIGM;
+    //config.oActivation = ANN_ACTIVATION::A_SIGM;
+    //config.cost = ANN_COST::COST_MSE;
+    //config.trainingFile = "training.txt";
+    //config.labelsFile = "labels.txt";
+    //config.weightsFile = "weights.txt";
 
+    ifstream configFile("configNN.dist");
 
-    NeuralNetwork *nn = new NeuralNetwork(config);
-    nn->setCurrentInput(input);
+    // validate that the file was found
+    if (!configFile) {
+		cerr << "File not found." << endl;
+		return 1;
+	}
 
-    //nn->printToConsole();
+    string str((std::istreambuf_iterator<char>(configFile)),
+              std::istreambuf_iterator<char>());
 
+    NeuralNetwork *n  = new NeuralNetwork(buildConfig(json::parse(str)));
+    
+    vector< vector<double> > trainingData = utils::Misc::fetchData(n->config.trainingFile);
+    vector< vector<double> > labelData    = utils::Misc::fetchData(n->config.labelsFile);
+    
+    cout << "Training Data Size: " << trainingData.size() << endl;
+    cout << "Label Data Size: " << labelData.size() << endl;
+    
+    for(int i = 0; i < n->config.epoch; i++) {
+    for(int tIndex = 0; tIndex < trainingData.size(); tIndex++) {
+        vector<double> input    = trainingData.at(tIndex);
+        vector<double> target   = labelData.at(tIndex);
+    
+        n->train(
+        input,
+        target,
+        n->config.bias,
+        n->config.learningRate,
+        n->config.momentum
+        );
+    }
+    cout << n->error << endl;
+    
+    //cout << "Error at epoch " << i+1 << ": " << n->error << endl;
+    }
+    
+    cout << "Done! Writing to " << n->config.weightsFile << "..." << endl;
+    n->saveWeights(n->config.weightsFile);
+
+	//print the activatedVals values to
 
 //    // Set the random seed for reproducibility
 //    srand(42);

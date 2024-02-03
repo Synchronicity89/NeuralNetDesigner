@@ -24,13 +24,21 @@ ANNConfig buildConfig(json configObject) {
   double momentum       = configObject["momentum"];
   double bias           = configObject["bias"];
   int epoch             = configObject["epoch"];
-  string trainingFile   = configObject["trainingFile"];
-  string labelsFile     = configObject["labelsFile"];
-  string weightsFile    = configObject["weightsFile"];
+  //string trainingFile = configObject["trainingFile"];
+  //string labelsFile = configObject["labelsFile"];
+  //string weightsFile = configObject["weightsFile"];
+  //bug in json.hpp, can't use string directly
+  string trainingFile = "trainingFile.csv";
+  string labelsFile = "labelsFile.csv";
+  string weightsFile = "weightsFile.json";
+
   vector<int> topology  = configObject["topology"];
 
-  ANN_ACTIVATION hActivation  = configObject["hActivation"];
-  ANN_ACTIVATION oActivation  = configObject["oActivation"];
+  //ANN_ACTIVATION hActivation = configObject["hActivation"];
+  //ANN_ACTIVATION oActivation = configObject["oActivation"];
+
+  ANN_ACTIVATION hActivation = A_SIGM;// configObject["hActivation"];
+  ANN_ACTIVATION oActivation = A_SIGM;// configObject["oActivation"];
 
   config.topology     = topology;
   config.bias         = bias;
