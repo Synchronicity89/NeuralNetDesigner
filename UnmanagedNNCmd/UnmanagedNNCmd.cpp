@@ -155,26 +155,28 @@ int main() {
     vector< vector<double> > y_data;
     vector< vector<double> > m_data;
 
+    double b = 0.5;
     for (int i = 0; i < 5000; i++) {
 		double m = (double)rand() / RAND_MAX;
-		double b = 0.5;
 		double x;
         vector<double> y;
         vector<double> m_vec; // boring vector only has one value
+
+        // vary the y intercept in a quasi-random way
+
+
+        double yIntercept = (double)rand() / RAND_MAX;
         for (int j = 0; j < 10; j++) {
-			x = (double) j/10;
-			y.push_back(m * x + b);
-		}
+            x = (double)j / 10;
+            y.push_back(m * x + yIntercept);
+        }
         // push m to m_data
         m_vec.push_back(m);
         y_data.push_back(y);
         m_data.push_back(m_vec);
 	}
-    utils::Misc::writeData("c:\\data\\trainingData.csv", y_data);
-    utils::Misc::writeData("c:\\data\\labelData.csv", m_data);
-
-
-
+    utils::Misc::writeData("trainingFile.csv", y_data);
+    utils::Misc::writeData("labelsFile.csv", m_data);
 
     ifstream configFile("configNN.dist");
 
@@ -188,11 +190,8 @@ int main() {
               std::istreambuf_iterator<char>());
 
     NeuralNetwork *n  = new NeuralNetwork(buildConfig(json::parse(str)));
-    // append "c:\\data\\" to the front of the file name contained in n->config.trainingFile
-    // and n->config.labelsFile
-    // first create string variables for each, then print the string variables
-    string trainingFile = "c:\\data\\" + n->config.trainingFile;
-    string labelsFile = "c:\\data\\" + n->config.labelsFile;
+    string trainingFile = n->config.trainingFile;
+    string labelsFile = n->config.labelsFile;
 
     cout << trainingFile << endl;
     cout << labelsFile << endl;

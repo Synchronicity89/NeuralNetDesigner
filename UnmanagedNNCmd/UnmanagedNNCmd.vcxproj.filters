@@ -21,7 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="x64\Debug\configNN.dist" />
     <None Include="configNN.dist" />
     <None Include="labelData.csv" />
     <None Include="trainingData.csv" />

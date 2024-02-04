@@ -134,10 +134,6 @@
     <None Include="labelData.csv" />
     <None Include="packages.config" />
     <None Include="trainingData.csv" />
-    <None Include="x64\Debug\configNN.dist">
-      <DeploymentContent>true</DeploymentContent>
-      <FileType>Text</FileType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h" />
