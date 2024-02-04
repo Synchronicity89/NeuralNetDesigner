@@ -145,6 +145,37 @@ int main() {
     //config.labelsFile = "labels.txt";
     //config.weightsFile = "weights.txt";
 
+    // Create generate 5000 linear equations in the form of y = mx + 0, 
+    // comment which files I should include and generate 100 y values between 0 and 1 for each equation.  
+    // Output the y values to a trainingFile.csv, and the m values to a labelsFile.csv
+    // let me know what headers I should include in the files using comments. Start next line
+    // with a comment
+
+    // define x_data and y_data
+    vector< vector<double> > y_data;
+    vector< vector<double> > m_data;
+
+    for (int i = 0; i < 5000; i++) {
+		double m = (double)rand() / RAND_MAX;
+		double b = 0.5;
+		double x;
+        vector<double> y;
+        vector<double> m_vec; // boring vector only has one value
+        for (int j = 0; j < 10; j++) {
+			x = (double) j/10;
+			y.push_back(m * x + b);
+		}
+        // push m to m_data
+        m_vec.push_back(m);
+        y_data.push_back(y);
+        m_data.push_back(m_vec);
+	}
+    utils::Misc::writeData("c:\\data\\trainingData.csv", y_data);
+    utils::Misc::writeData("c:\\data\\labelData.csv", m_data);
+
+
+
+
     ifstream configFile("configNN.dist");
 
     // validate that the file was found
@@ -157,9 +188,17 @@ int main() {
               std::istreambuf_iterator<char>());
 
     NeuralNetwork *n  = new NeuralNetwork(buildConfig(json::parse(str)));
+    // append "c:\\data\\" to the front of the file name contained in n->config.trainingFile
+    // and n->config.labelsFile
+    // first create string variables for each, then print the string variables
+    string trainingFile = "c:\\data\\" + n->config.trainingFile;
+    string labelsFile = "c:\\data\\" + n->config.labelsFile;
+
+    cout << trainingFile << endl;
+    cout << labelsFile << endl;
     
-    vector< vector<double> > trainingData = utils::Misc::fetchData(n->config.trainingFile);
-    vector< vector<double> > labelData    = utils::Misc::fetchData(n->config.labelsFile);
+    vector< vector<double> > trainingData = utils::Misc::fetchData(trainingFile);
+    vector< vector<double> > labelData    = utils::Misc::fetchData(labelsFile);
     
     cout << "Training Data Size: " << trainingData.size() << endl;
     cout << "Label Data Size: " << labelData.size() << endl;

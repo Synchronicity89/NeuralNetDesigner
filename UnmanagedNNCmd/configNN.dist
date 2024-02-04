@@ -1,5 +1,5 @@
 {
-	"topology": [100, 20, 6, 20, 100] ,
+	"topology": [10, 7, 4, 1],
 		"learningRate" : 0.05,
 		"momentum" : 1.0,
 		"bias" : 1.0,
