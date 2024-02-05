@@ -121,44 +121,11 @@ void printToConsole(NeuralNetwork *nn) {
 }
 
 
-int main() {
-
-    vector<int> topology;
-    topology.push_back(3);
-    topology.push_back(5);
-    topology.push_back(3);
-
-    vector<double> input;
-    input.push_back(0.99);
-    input.push_back(0.01);
-    input.push_back(0.99);
-    //ANNConfig config;
-    //config.topology = topology;
-    //config.bias = 0.01;
-    //config.learningRate = 0.005;
-    //config.momentum = 0.3;
-    //config.epoch = 1000;
-    //config.hActivation = ANN_ACTIVATION::A_SIGM;
-    //config.oActivation = ANN_ACTIVATION::A_SIGM;
-    //config.cost = ANN_COST::COST_MSE;
-    //config.trainingFile = "training.txt";
-    //config.labelsFile = "labels.txt";
-    //config.weightsFile = "weights.txt";
-
-    // Create generate 5000 linear equations in the form of y = mx + 0, 
-    // comment which files I should include and generate 100 y values between 0 and 1 for each equation.  
-    // Output the y values to a trainingFile.csv, and the m values to a labelsFile.csv
-    // let me know what headers I should include in the files using comments. Start next line
-    // with a comment
-
-    // define x_data and y_data
-    vector< vector<double> > y_data;
-    vector< vector<double> > m_data;
-
-    double b = 0.5;
+string LinearAlgebra(std::vector<std::vector<double>>& y_data, std::vector<std::vector<double>>& x_data)
+{
     for (int i = 0; i < 5000; i++) {
-		double m = (double)rand() / RAND_MAX;
-		double x;
+        double m = (double)rand() / RAND_MAX;
+        double x;
         vector<double> y;
         vector<double> m_vec; // boring vector only has one value
 
@@ -173,12 +140,23 @@ int main() {
         // push m to m_data
         m_vec.push_back(m);
         y_data.push_back(y);
-        m_data.push_back(m_vec);
-	}
-    utils::Misc::writeData("trainingFile.csv", y_data);
-    utils::Misc::writeData("labelsFile.csv", m_data);
+        x_data.push_back(m_vec);
+    }
+    return "configNN.dist";
+}
 
-    ifstream configFile("configNN.dist");
+int main() {
+
+    // define x_data and y_data
+    vector< vector<double> > y_data;
+    vector< vector<double> > x_data;
+
+    string configNN = LinearAlgebra(y_data, x_data);
+
+    utils::Misc::writeData("trainingFile.csv", y_data);
+    utils::Misc::writeData("labelsFile.csv", x_data);
+
+    ifstream configFile(configNN);
 
     // validate that the file was found
     if (!configFile) {

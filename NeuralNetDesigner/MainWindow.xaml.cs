@@ -21,9 +21,10 @@ namespace NeuralNetDesigner
         {
             InitializeComponent();
         }
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            ChessGameCompressor chessGameCompressor = new ChessGameCompressor();
+            var games = chessGameCompressor.SamplesSplit();
             Class1 c = new Class1();
             var cat = c.Add(1, 2);
 

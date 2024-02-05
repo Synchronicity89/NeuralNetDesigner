@@ -1,0 +1,12 @@
+{
+	"topology": [ 10, 7, 4, 1 ],
+	"learningRate": 0.05,
+	"momentum": 1.0,
+	"bias": 1.0,
+	"epoch": 1000,
+	"trainingFile": "trainingFile.csv",
+	"labelsFile": "labelsFile.csv",
+	"weightsFile": "LinearAlgebra.json",
+	"hActivation": 2,
+	"oActivation": 2
+}

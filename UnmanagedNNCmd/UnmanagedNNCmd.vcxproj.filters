@@ -21,9 +21,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="configNN.dist" />
+    <None Include="LinearAlgebra.dist" />
     <None Include="labelData.csv" />
     <None Include="trainingData.csv" />
+    <None Include="ChessGame.dist" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h">

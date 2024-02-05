@@ -16,6 +16,7 @@
       <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\DeepLearning\DeepLearning.vcxproj" />
+    <ProjectReference Include="..\NeuralNetDesignerLib\NeuralNetDesignerLib.csproj" />
   </ItemGroup>
 
 </Project>

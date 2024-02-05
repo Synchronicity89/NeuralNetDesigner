@@ -6,7 +6,7 @@
 	"epoch": 1000,
 	"trainingFile": "trainingFile.csv",
 	"labelsFile": "labelsFile.csv",
-	"weightsFile": "weightsFile.json",
+	"weightsFile": "ChessGame.json",
 	"hActivation": 2,
 	"oActivation": 2
 }

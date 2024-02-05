@@ -130,7 +130,8 @@
     <ClCompile Include="UnmanagedNNCmd.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="configNN.dist" />
+    <None Include="ChessGame.dist" />
+    <None Include="LinearAlgebra.dist" />
     <None Include="labelData.csv" />
     <None Include="packages.config" />
     <None Include="trainingData.csv" />
