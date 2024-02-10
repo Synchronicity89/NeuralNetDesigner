@@ -1,11 +1,12 @@
-﻿using System;
+﻿//using DeepLearning;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
-
-public class ChessGameCompressor
+using TimHanewich.Chess;
+using TimHanewich.Chess.PGN;
+namespace NeuralNetDesignerLib
 {
-    enum ChessPiece
+    public enum ChessPiece
     {
         Empty = 0,
         B_Pawn = 1,
@@ -22,65 +23,287 @@ public class ChessGameCompressor
         W_King = 6 + 8,
     }
 
-    // Main method to compress a chess game from a PGN string
-    public static double[] CompressGameFromPGN(string pgn)
-    {
-        var moves = ParsePGNMoves(pgn);
-        return CompressGame(moves);
-    }
 
-    // Parse moves from a PGN string
-    private static List<string> ParsePGNMoves(string pgn)
+    public class ChessGameCompressor
     {
-        var movesList = new List<string>();
-        var matches = Regex.Matches(pgn, @"(\d+\.\s)?([a-h][1-8]|[NBRQK][a-h]?[1-8]?x?[a-h][1-8])\s?([a-h][1-8]|[NBRQK][a-h]?[1-8]?x?[a-h][1-8])?");
-        foreach (Match match in matches)
+        // Main method to compress a chess game from a PGN string
+        //public double[] CompressGameFromPGN(string pgn)
+        //{
+        //    var moves = ParsePGNMoves(pgn);
+        //    return CompressGame(moves);
+        //}
+
+        // Parse moves from a PGN string
+        public List<BoardPosition> ParsePGNMoves(string pgn, BoardPosition board)
         {
-            if (match.Groups[2].Success) movesList.Add(match.Groups[2].Value);
-            if (match.Groups[3].Success) movesList.Add(match.Groups[3].Value);
+            //var movesList = new List<string>();
+            //var matches = Regex.Matches(pgn, @"(\d+\.\s)?([a-h][1-8]|[NBRQK][a-h]?[1-8]?x?[a-h][1-8])\s?([a-h][1-8]|[NBRQK][a-h]?[1-8]?x?[a-h][1-8])?");
+            //foreach (Match match in matches)
+            //{
+            //    if (match.Groups[2].Success) movesList.Add(match.Groups[2].Value);
+            //    if (match.Groups[3].Success) movesList.Add(match.Groups[3].Value);
+            //}
+
+            var movesList2 = new List<BoardPosition>();
+            PgnFile pgnFile = PgnFile.ParsePgn(pgn);
+            foreach (var moveString in pgnFile.Moves)
+            {
+                if (String.IsNullOrEmpty(moveString)) { continue; }
+                var move = new Move(moveString, board);
+                board.ExecuteMove(move);
+                
+                movesList2.Add(board.Copy());
+            }
+
+            return movesList2;
         }
-        return movesList;
-    }
 
-    // The existing CompressGame method
-    public static double[] CompressGame(List<string> moves)
-    {
-        double[] compressedGame = new double[64]; // 64 squares
-                                                  // ... existing implementation ...
+        // The existing CompressGame method
+        public double[] CompressGame(List<string> moves)
+        {
+            double[] compressedGame = new double[64]; // 64 squares
+                                                      // ... existing implementation ...
 
-        return compressedGame;
-    }
+            return compressedGame;
+        }
 
-    // Existing helper methods
-    private static bool UpdateSquareHistory(ref Int64 squareHistory, ChessPiece piece)
-    {
-        bool success = true;
-        // ... existing implementation ...
-        return success;
-    }
+        // Existing helper methods
+        private static bool UpdateSquareHistory(ref Int64 squareHistory, ChessPiece piece)
+        {
+            bool success = true;
+            // ... existing implementation ...
+            return success;
+        }
 
-    private static int ConvertMoveToSquareIndex(string move)
-    {
-        int index = 0;
-        // ... existing implementation
-        return index;
-    }
+        private static int ConvertMoveToSquareIndex(string move)
+        {
+            int index = 0;
+            // ... existing implementation
+            return index;
+        }
 
-    private static ChessPiece IdentifyPieceFromMove(string move)
-    {
-        ChessPiece piece = (ChessPiece)(-1); //black pawn
-        // ... existing implementation ...
-        return piece;
-    }
+        private static ChessPiece IdentifyPieceFromMove(string move)
+        {
+            ChessPiece piece = (ChessPiece)(-1); //black pawn
+                                                 // ... existing implementation ...
+            return piece;
+        }
 
-    public string[] SamplesSplit()
-    {
-        //split the sample PGN into individual games
-        string[] games = samplePGN.Split(new string[] { "\r\n\r\n[Event" }, StringSplitOptions.RemoveEmptyEntries);
+        public string[] SamplesSplit(string path = null)
+        {
+            if(string.IsNullOrWhiteSpace(path))
+            {
+                //split the sample PGN into individual games
+                string[] games = samplePGN.Split(new string[] { "\r\n[Event" }, StringSplitOptions.RemoveEmptyEntries);
 
-        return games.Select(g => g.StartsWith("[Event") ? g : "[Event" + g).ToArray();
-    }
-    string samplePGN = @"
+                return games.Select(g => g.StartsWith("[Event") ? g : "[Event" + g).ToArray();
+            }
+            else
+            {
+                // load the PGN from the file path
+                string pgn = System.IO.File.ReadAllText(path);
+                //find all the indicies of where the string "[Event" occurs
+                List<int> indicies = new List<int>();
+                int index = pgn.IndexOf("[Event ");
+                while (index != -1)
+                {
+                    indicies.Add(index);
+                    index = pgn.IndexOf("[Event ", index + 1);
+                }
+                //split the PGN into individual games
+                string[] games = new string[indicies.Count];
+                for (int i = 0; i < indicies.Count; i++)
+                {
+                    if (i == indicies.Count - 1)
+                    {
+                        games[i] = pgn.Substring(indicies[i]);
+                    }
+                    else
+                    {
+                        games[i] = pgn.Substring(indicies[i], indicies[i + 1] - indicies[i]);
+                    }
+                }
+                return games;
+            }
+        }
+
+        public IEnumerable<ulong> GetBitBoard(BoardPosition move)
+        {
+            List<ulong> bitBoard = new List<ulong>();
+            bitBoard.AddRange(move.BoardRepresentation().Select(br => (ulong)br));
+
+            string enPassantTargetSquare = move.EnPassantTarget.HasValue ?
+                Enum.GetName(typeof(Position), move.EnPassantTarget.Value) : "";
+            if(!string.IsNullOrEmpty(enPassantTargetSquare))
+            {
+                int flatIndex = GetFlatPositionIndex(enPassantTargetSquare);
+                bitBoard[flatIndex] += 16;
+            }
+            bitBoard.Add(move.BlackKingSideCastlingAvailable ? 1UL : 0UL);
+            bitBoard.Add(move.BlackQueenSideCastlingAvailable ? 1UL : 0UL);
+            bitBoard.Add(move.WhiteKingSideCastlingAvailable ? 1UL : 0UL);
+            bitBoard.Add(move.WhiteQueenSideCastlingAvailable ? 1UL : 0UL);
+            bitBoard.Add(move.IsCheckMate() ? 1UL : 0UL);
+            bitBoard.Add((ulong)move.AvailableMoves().Length);
+            return bitBoard;
+        }
+
+        public int GetFlatPositionIndex(string enPassantTargetSquare)
+        {
+            // The hard way, it shows that the indexing is based on the column offset by row and not the row offset by column
+            int flatIndex = 0;
+            if (!string.IsNullOrEmpty(enPassantTargetSquare))
+            {
+                int column = GetColumnIndex(enPassantTargetSquare[0]);
+                int row = int.Parse(enPassantTargetSquare[1].ToString()) - 1;
+                flatIndex = GetFlatBoardIndex(row, column);
+            }
+            else
+            {
+                //throw Invalid Argument Exception
+                flatIndex = 0;
+                throw new ArgumentException("Invalid Argument Exception: Position enum incorrect");
+            }
+            // Now do it the easy way
+            int actual = (int) Enum.Parse(typeof(Position), enPassantTargetSquare);
+            if (actual != flatIndex)
+            {
+                throw new ArgumentException("Invalid Argument Exception: unexpected Position enum name");
+            }
+
+            return flatIndex;
+        }
+
+        public const string InitialPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        public const string columns = "abcdefgh";
+        //DeepNetwork deepNetwork;
+        BoardPosition selfPlayBoard;
+        List<Move?> moves;
+        public int GetColumnIndex(char column)
+        {
+            return columns.IndexOf(char.ToLower(column));
+        }
+
+        public int GetFlatBoardIndex(int row, int column)
+        {
+            return row + column * 8;
+        }
+
+        public IEnumerable<ulong> ConvertFENToBitBoard(string fenText)
+        {
+            string fen = "";
+            BoardPosition bp = new BoardPosition(fenText);
+            //convert the FEN to a bitboard
+            return GetBitBoard(bp);
+        }
+
+        public string ConvertBitBoardToFEN(string previousMoveFEN, double[] bitBoard)
+        {
+            if(moves == null) moves = new List<Move?>();
+            // the previous Move FEN is the initial position clear the moves list
+            if (previousMoveFEN == InitialPosition)
+            {
+                moves.Clear();
+                selfPlayBoard = new BoardPosition(previousMoveFEN);
+            }
+            //convert the bitboard to a FEN
+            // for now just join the ulong array into a string with a comma between each element.  2 decimal places max per element
+            //return string.Join(",", bitBoard.Select(ul => ul.ToString("F4")));
+
+            //convert the bitboard to a FEN
+            // How to choose a move that the predicted bitboard represents?
+            // 1.  Use the previous move FEN to create a BoardPosition
+            BoardPosition previousMove = new BoardPosition(previousMoveFEN);
+
+            // The problem is that some of the predicted bitboard values are not valid for a BoardPosition
+            // So, loop through the legal moves from the previousMove and compare the bitboard to the bitboard of the legal move, using a cost function
+            // The cost function will be the sum of the absolute differences between the bitboard values
+            // The lowest cost will be the move that was made
+
+            // create a scaled and biased version of the predicted bitboard that more closely matches the board position of the previous move
+            var bitBoardPrev = GetBitBoard(previousMove);
+            var bitBoardPrevDoubles = bitBoardPrev.Select(ul => (double)ul).ToArray();
+            // use gradient descent to bias first and then scale the predicted bitboard to match the previous move bitboard
+            // the cost function is the sum of the absolute differences between the predicted bitboard and the previous move bitboard
+            // the gradient is the sign of the difference between the predicted bitboard and the previous move bitboard
+            // the learning rate is 0.1
+            double learningRate = 0.1;
+            // the bias and scale are initialized to 0 and 1 respectively
+            double bias = 0;
+            double scale = 1;
+            // the bias and scale are updated by subtracting the learning rate times the gradient
+            // the learning rate is halved every 1000 iterations
+            // the process is repeated until the cost function is less than 0.1
+            int iterations = 0;
+            double cost = 0;
+            // the predicted bitboard is then scaled and biased by the final bias and scale
+
+            // calculate the range of previousMove bitboard values
+            double minPreviousMove = double.MaxValue;
+            double maxPreviousMove = double.MinValue;
+            for (int i = 0; i < 64; i++)
+            {
+                if (bitBoardPrevDoubles[i] < minPreviousMove) minPreviousMove = bitBoardPrevDoubles[i];
+                if (bitBoardPrevDoubles[i] > maxPreviousMove) maxPreviousMove = bitBoardPrevDoubles[i];
+            }
+            // Do the same for the predicted bitboard
+            double minPredicted = double.MaxValue;
+            double maxPredicted = double.MinValue;
+            for (int i = 0; i < 64; i++)
+            {
+                if (bitBoard[i] < minPredicted) minPredicted = bitBoard[i];
+                if (bitBoard[i] > maxPredicted) maxPredicted = bitBoard[i];
+            }
+
+            // scale the predicted bitboard to the range of the previousMove bitboard
+            double rangePreviousMove = maxPreviousMove - minPreviousMove;
+            double rangePredicted = maxPredicted - minPredicted;
+            double scalePredicted = rangePreviousMove / rangePredicted;
+            double biasPredicted = minPreviousMove - minPredicted * scalePredicted;
+            var bitBoardSB = bitBoard.Select(ul => ((double)ul) * scalePredicted).ToArray();
+            var averageBBSB = bitBoardSB.Average();
+            var averageBBPrev = bitBoardPrevDoubles.Average();
+            //subtract the averages to get the bias
+            bias = averageBBPrev - averageBBSB;
+            scale = scalePredicted;
+
+            // the scaled and biased predicted bitboard is then compared to the bitboards of the legal moves from the previous move as follows
+
+            bitBoardSB = bitBoard.Select(ul => ((double)ul + bias) * scale).ToArray();
+
+            // the scaled and biased predicted bitboard is then compared to the bitboards of the legal moves from the previous move as follows
+
+            double lowestCost = double.MaxValue;
+            BoardPosition bestMove = null;
+            Move? bestM = default(Move?);
+            foreach (var move in previousMove.AvailableMoves())
+            {
+                BoardPosition movePosition = previousMove.Copy();
+                movePosition.ExecuteMove(move);
+                double cost2 = 0;
+                var bitBoard2 = GetBitBoard(movePosition);
+                for (int i = 0; i < bitBoardSB.Length; i++)
+                {
+                    cost2 += Math.Abs((double)bitBoardSB[i] - (double)bitBoard2.ElementAt(i));
+                }
+                if (cost2 < lowestCost)
+                {
+                    lowestCost = cost2;
+                    bestMove = movePosition;
+                    bestM = move;
+                }
+            }
+            if (bestM != null) selfPlayBoard.ExecuteMove(bestM);
+            moves.Add(bestM);
+            //return the FEN of the best move
+            return bestMove != null ? bestMove.ToFEN() : "No legal move found";
+        }
+
+        public List<Move?> FetchSelfPlayMoves()
+        {
+            return moves;
+        }
+        private string samplePGN = @"
 [Event ""81st Tata Steel GpA""]
 [Site ""Wijk aan Zee NED""]
 [Date ""2019.01.12""]
@@ -434,4 +657,5 @@ Be6 27. Qb1 Nf4 28. d5 Nxd5 29. Qg1 Kh8 30. Rd2 Nf4 31. Rd4 Ng6 32. Be4 Rc4
 33. Rxc4 Bxc4 34. Qd4 Be6 35. Bc6 Ne7 36. Be4 Nf5 37. Bxf5 Bxf5 38. Kg1 Be6
 39. h4 Qd7 40. Qe4 Rc8 41. h5 Rc1+ 42. Kh2 Qd8 0-1
 ";
+    }
 }

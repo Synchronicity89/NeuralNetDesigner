@@ -145,13 +145,49 @@ string LinearAlgebra(std::vector<std::vector<double>>& y_data, std::vector<std::
     return "configNN.dist";
 }
 
+string ChessGame(std::vector<std::vector<double>>& y_data, std::vector<std::vector<double>>& x_data)
+{
+    //load the X_training.csv into x_data, and the Y_Labels.csv into y_data
+    ifstream xFile("X_training.csv");
+    ifstream yFile("Y_Labels.csv");
+
+    string line;
+    while (getline(xFile, line)) {
+		vector<double>  dRow;
+		string          tok;
+		stringstream    ss(line);
+
+        while (getline(ss, tok, ',')) {
+			dRow.push_back(stof(tok)/10.0);
+		}
+
+		x_data.push_back(dRow);
+	}
+
+    while (getline(yFile, line)) {
+
+        vector<double>  dRow;
+        string          tok;
+        stringstream    ss(line);
+
+        while (getline(ss, tok, ',')) {
+			dRow.push_back(stof(tok)/10.0);
+		}
+
+        y_data.push_back(dRow);
+    }
+
+    return "ChessGame.dist";
+}
+
 int main() {
 
     // define x_data and y_data
     vector< vector<double> > y_data;
     vector< vector<double> > x_data;
 
-    string configNN = LinearAlgebra(y_data, x_data);
+    //string configNN = LinearAlgebra(y_data, x_data);
+    string configNN = ChessGame(y_data, x_data);
 
     utils::Misc::writeData("trainingFile.csv", y_data);
     utils::Misc::writeData("labelsFile.csv", x_data);

@@ -1,11 +1,11 @@
 {
-	"topology": [ 10, 7, 4, 1 ],
-	"learningRate": 0.05,
+	"topology": [ 71, 51, 31, 51, 71 ],
+	"learningRate": 0.09,
 	"momentum": 1.0,
 	"bias": 1.0,
-	"epoch": 1000,
-	"trainingFile": "trainingFile.csv",
-	"labelsFile": "labelsFile.csv",
+	"epoch": 100,
+	"trainingFile": "X_training.csv",
+	"labelsFile": "Y_Labels.csv",
 	"weightsFile": "ChessGame.json",
 	"hActivation": 2,
 	"oActivation": 2

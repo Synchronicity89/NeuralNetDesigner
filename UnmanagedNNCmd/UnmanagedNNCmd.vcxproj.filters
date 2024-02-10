@@ -25,6 +25,8 @@
     <None Include="labelData.csv" />
     <None Include="trainingData.csv" />
     <None Include="ChessGame.dist" />
+    <None Include="X_training.csv" />
+    <None Include="Y_Labels.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h">

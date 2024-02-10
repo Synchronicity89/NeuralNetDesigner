@@ -135,6 +135,8 @@
     <None Include="labelData.csv" />
     <None Include="packages.config" />
     <None Include="trainingData.csv" />
+    <None Include="X_training.csv" />
+    <None Include="Y_Labels.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnmanagedNNCmd.h" />

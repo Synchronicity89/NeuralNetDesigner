@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NeuralNetDesignerLib
 {
-    internal class ChessGames
+    public class ChessGames
     {
         private static readonly HttpClient client = new HttpClient();
 
@@ -46,6 +47,32 @@ namespace NeuralNetDesignerLib
             List<double> encodedData = ConvertPGNToDouble(pgnData);
 
             // Further processing for neural network input
+        }
+
+        public static async Task DownloadChessGamesZip(string url)
+        {
+            HttpResponseMessage response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            byte[] responseBody = await response.Content.ReadAsByteArrayAsync();
+            // Unzip the file represented by responseBody
+            // Implement the unzipping logic here
+            //Create a stream from the byte array and pass it to the ZipArchive class
+            using (MemoryStream stream = new MemoryStream(responseBody))
+            {
+                using (ZipArchive archive = new ZipArchive(stream))
+                {
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        using (Stream fileStream = entry.Open())
+                        {
+                            // Process the zip file
+                            fileStream.CopyTo(File.Create(entry.FullName));
+                        }
+                    }
+                }
+            }
+
+            // Write the PGN file to disk
         }
     }
 }
