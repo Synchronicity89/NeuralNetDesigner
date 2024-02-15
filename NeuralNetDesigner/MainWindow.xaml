@@ -10,16 +10,18 @@
         <TextBox  Name="txtChessDatabase"  Margin="49,71,78,0" TextWrapping="Wrap" Text="https://assets.zyrosite.com/YBgLqkyJv8FWvZVX/merged_2019_2022_27.pgn-A3QEPXnBz2TgPJMQ.zip" VerticalAlignment="Top"/>
         <Label Name="lblWebSiteForDownload" Content="Web site to download from" HorizontalAlignment="Left" Margin="49,40,0,0" VerticalAlignment="Top" Height="31" Width="213"/>
         <TextBox Name="txtWebSiteDownload" Margin="49,10,78,0" TextWrapping="Wrap" Text="https://chesscompiled.com/" VerticalAlignment="Top" Height="25"/>
-        <Button Name="btnDownload" Content="Download and Unzip" Margin="535,120,78,0" VerticalAlignment="Top" Height="22" Click="btnDownload_Click"/>
-        <Button Name="btnProcess" Content="Process" Margin="535,147,78,0" VerticalAlignment="Top" Height="22" Click="btnProcess_Click"/>
+        <Button Name="btnDownload" Content="Download and Unzip" Margin="532,120,78,0" VerticalAlignment="Top" Height="22" Click="btnDownload_Click"/>
+        <Button Name="btnProcess" Content="Process" Margin="532,147,78,0" VerticalAlignment="Top" Height="22" Click="btnProcess_Click"/>
         <TextBox x:Name="txtFENCurrent" Margin="49,249,79,0" TextWrapping="Wrap" Text="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" VerticalAlignment="Top"/>
         <Label Content="FEN of current position:" HorizontalAlignment="Left" Margin="49,223,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPrediction" Margin="49,297,78,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtPrediction" Margin="48,331,78,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="btnSelfPlay" Content="Self Play 10 Moves" Margin="532,272,78,0" VerticalAlignment="Top" Click="btnSelfPlay_Click"/>
         <TextBox x:Name="txtWeightsPath" Margin="49,173,78,0" TextWrapping="Wrap" Text="..\..\UnmanagedNNCmd\ChessGameTrainedOn52000Moves.json" VerticalAlignment="Top" TextChanged="txtWeightsPath_TextChanged"/>
         <Label x:Name="lblWeightsFilePath" Content="Weights File Path:" HorizontalAlignment="Left" Margin="49,140,0,0" VerticalAlignment="Top" Width="481"/>
         <Button x:Name="btnBrowseWeights" Content="Browse for Weights..." HorizontalAlignment="Left" Margin="49,191,0,0" VerticalAlignment="Top" Click="btnBrowseWeights_Click"/>
-        <Button x:Name="btnLoadWeights" Content="Load Weights and Predict" Margin="535,196,78,0" VerticalAlignment="Top" Click="btnLoadWeights_Click"/>
+        <Button x:Name="btnLoadWeights" Content="Load Weights and Predict" Margin="532,196,78,0" VerticalAlignment="Top" Click="btnLoadWeights_Click"/>
         <TextBox x:Name="txtSelfPlayPGN" HorizontalAlignment="Left" Margin="49,422,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="873" Height="123"/>
+        <Button x:Name="btnSelfPlayOneMove" Content="Self Play 1 Move" Margin="532,297,78,0" VerticalAlignment="Top" Click="btnSelfPlayOneMove_Click"/>
+        <Button x:Name="btnOpenDesignNN" Content="Open Design Neural N..." HorizontalAlignment="Left" Margin="532,550,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.093,0.137" Width="389" Click="btnOpenDesignNN_Click"/>
     </Grid>
 </Window>

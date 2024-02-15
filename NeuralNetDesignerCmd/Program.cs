@@ -52,7 +52,8 @@ int e7 = chessGameCompressor.GetFlatPositionIndex(Position.E7.ToString());
 int d2 = chessGameCompressor.GetFlatPositionIndex(Position.D2.ToString());
 
 // Note that the Position for the actual pieces is not set correctly and defaults to A1.
-// This apparently is by design, and has to be worked around, and doesn't represent a bug in the code.
+// This apparently is by design or is a limitation of the nuget package, and has to be worked around, and doesn't represent a bug in the code
+// using the nuget package
 Console.WriteLine($"Expected index and piece: {e2}, {new Piece(Color.White, PieceType.Rook, Position.E2).ToMeaningfulString()}, Actual piece: {Piece.FromCode(boardRepresentation[e2]).ToMeaningfulString()}");
 Console.WriteLine($"Expected index and piece: {e7}, {new Piece(Color.Black, PieceType.Pawn, Position.E7).ToMeaningfulString()}, Actual piece: {Piece.FromCode(boardRepresentation[e7]).ToMeaningfulString()}");
 Console.WriteLine($"Expected index and piece: {d2}, {new Piece(Color.White, PieceType.Pawn, Position.D2).ToMeaningfulString()}, Actual piece: {Piece.FromCode(boardRepresentation[d2]).ToMeaningfulString()}");

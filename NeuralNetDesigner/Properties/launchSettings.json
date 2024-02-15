@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NeuralNetDesigner": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

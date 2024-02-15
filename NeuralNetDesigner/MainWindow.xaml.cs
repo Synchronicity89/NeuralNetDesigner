@@ -193,21 +193,26 @@ namespace NeuralNetDesigner
             // for i in range(10):
             for(int i = 0; i < 10; i++)
             {
-                // copy the FEN from the prediction textbox to the current FEN textbox
-                txtFENCurrent.Text = txtPrediction.Text;
-                // clear the prediction textbox
-                txtPrediction.Text = "";
-                // execute the load weights button click event
-                btnLoadWeights_Click(null, null);
-                //fetch the saved moves from ChessGameCompressor instance
-                var moves = chessGameCompressor.FetchSelfPlayMoves();
-                // if there are moves, show them in the txtSelfPlayMoves textbox
-                if (moves != null)
-                {
-                    txtSelfPlayPGN.Text = string.Join(" ", moves);
-                }
+                SelfPlay();
             }
 
+        }
+
+        private void SelfPlay()
+        {
+            // copy the FEN from the prediction textbox to the current FEN textbox
+            txtFENCurrent.Text = txtPrediction.Text;
+            // clear the prediction textbox
+            txtPrediction.Text = "";
+            // execute the load weights button click event
+            btnLoadWeights_Click(null, null);
+            //fetch the saved moves from ChessGameCompressor instance
+            var moves = chessGameCompressor.FetchSelfPlayMoves();
+            // if there are moves, show them in the txtSelfPlayMoves textbox
+            if (moves != null)
+            {
+                txtSelfPlayPGN.Text = string.Join(" ", moves);
+            }
         }
 
         private void txtWeightsPath_TextChanged(object sender, TextChangedEventArgs e)
@@ -217,26 +222,39 @@ namespace NeuralNetDesigner
 
         private void btnBrowseWeights_Click(object sender, RoutedEventArgs e)
         {
+            string defaultPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            Action<string> setTextBox = (p) => txtWeightsPath.Text = p;
+
+            BrowseForFilename(defaultPath, setTextBox, ".json");
+        }
+
+        public static void BrowseForFilename(string defaultPath, Action<string> setTextBox, string extension, bool open = true)
+        {
             // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            
+            Microsoft.Win32.FileDialog dlg = open ? new Microsoft.Win32.OpenFileDialog() :
+                new Microsoft.Win32.SaveFileDialog();
+
             // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".json";
-            dlg.Filter = "JSON Files (*.json)|*.json";
-            //dlg.DefaultDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            dlg.DefaultExt = extension;
+            // generate the filter string from the extension after the dot
+            extension = extension.Substring(1);
+            dlg.Filter = $"{extension.ToUpper()} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
+
+            dlg.DefaultDirectory = defaultPath;
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
             if (result.HasValue)
             {
-                   // Get the selected file name and display in a TextBox
+                // Get the selected file name and display in a TextBox
                 if (result.Value)
                 {
                     // Open document
                     string filename = dlg.FileName;
-                    txtWeightsPath.Text = filename;
+                    setTextBox(filename);
                 }
             }
         }
+
         DeepNetwork network;
         ChessGameCompressor chessGameCompressor = null;
         private void btnLoadWeights_Click(object sender, RoutedEventArgs e)
@@ -250,6 +268,18 @@ namespace NeuralNetDesigner
                 var bitBoardPrediction = network.LoadWeights(weightsPath, bitBoard.Select(bb => (double)bb).ToList());
                 txtPrediction.Text = chessGameCompressor.ConvertBitBoardToFEN(txtFENCurrent.Text, bitBoardPrediction.ToArray());
             }
+        }
+
+        private void btnSelfPlayOneMove_Click(object sender, RoutedEventArgs e)
+        {
+            SelfPlay();
+        }
+
+        private void btnOpenDesignNN_Click(object sender, RoutedEventArgs e)
+        {
+            // open the DesignNN window
+            DesignNN designNN = new DesignNN();
+            designNN.Show();
         }
     }
 }

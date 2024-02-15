@@ -157,6 +157,7 @@
     <ClInclude Include="include\utils\Math.hpp" />
     <ClInclude Include="include\utils\Misc.hpp" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="trainNet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -177,7 +178,7 @@
     <ClCompile Include="src\neural_network\setErrors.cpp" />
     <ClCompile Include="src\neural_network\train.cpp" />
     <ClCompile Include="src\Neuron.cpp" />
-    <ClCompile Include="src\train.cpp" />
+    <ClCompile Include="src\trainNet.cpp" />
     <ClCompile Include="src\utils\Math.cpp" />
     <ClCompile Include="src\utils\Misc.cpp" />
   </ItemGroup>

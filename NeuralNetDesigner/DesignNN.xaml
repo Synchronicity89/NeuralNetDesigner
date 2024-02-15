@@ -1,0 +1,33 @@
+﻿<Window x:Class="NeuralNetDesigner.DesignNN"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NeuralNetDesigner"
+        mc:Ignorable="d"
+        Title="DesignNN" Height="450" Width="800">
+    <Grid Loaded="Grid_Loaded" Margin="0,0,-27,-16">
+        <TextBox x:Name="txtConfigDist" Margin="25,139,358,30" TextWrapping="Wrap">
+            <TextBox.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Paste" Executed="PasteExecuted" />
+            </TextBox.CommandBindings>
+        </TextBox>
+        <TextBox x:Name="txtProjectPath" Margin="131,10,43,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Project file path:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="101"/>
+        <Button x:Name="btnSetProjectPath" Content="Create/Open Project..." Margin="0,40,203,0" VerticalAlignment="Top" Click="btnSetProjectPath_Click" HorizontalAlignment="Right" Width="150"/>
+        <Button x:Name="btnSaveProject" Content="Save Project" Margin="0,40,43,0" VerticalAlignment="Top" Click="btnSaveProject_Click" HorizontalAlignment="Right" Width="141"/>
+        <Button x:Name="btnTrain" Content="Train (may take hours!)" Margin="541,0,53,20" Click="btnTrain_Click" Height="21" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="txtXTraining" Margin="131,65,141,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtYLabels" Margin="131,116,141,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="X Training file path:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Height="25"/>
+        <Label Content="Y Labels file path:" HorizontalAlignment="Left" Margin="6,108,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnOpenXTrainingPath" Content="Create/Open X Training Path___" Margin="0,91,203,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Click="btnOpenXTrainingPath_Click"/>
+        <Button x:Name="btnSaveProject_Copy" Content="Save Project" Margin="0,91,43,0" VerticalAlignment="Top" Click="btnSaveProject_Click" HorizontalAlignment="Right" Width="141"/>
+        <Button x:Name="btnOpenYLabelsPath" Content="Create/Open Y Labels Path..." Margin="0,139,203,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Click="btnOpenYLabelsPath_Click"/>
+        <Button x:Name="btnSaveProject_Copy1" Content="Save Project" Margin="0,139,43,0" VerticalAlignment="Top" Click="btnSaveProject_Click" HorizontalAlignment="Right" Width="141"/>
+        <Button x:Name="btnOpenProject" Content="Open Project..." HorizontalAlignment="Left" Margin="325,40,0,0" VerticalAlignment="Top" Width="122" Click="btnOpenProject_Click"/>
+        <Label x:Name="lblSizeXTraining" Content="" HorizontalAlignment="Left" Margin="695,61,0,0" VerticalAlignment="Top" Width="89"/>
+        <Label x:Name="lblSizeYLabels" Content="" HorizontalAlignment="Left" Margin="695,113,0,0" VerticalAlignment="Top" Width="89"/>
+
+    </Grid>
+</Window>

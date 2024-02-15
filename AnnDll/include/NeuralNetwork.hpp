@@ -14,17 +14,17 @@
 using namespace std;
 using json = nlohmann::json;
 
-enum ANN_COST {
+enum __declspec (dllexport) ANN_COST {
   COST_MSE
 };
 
-enum ANN_ACTIVATION {
+enum __declspec (dllexport) ANN_ACTIVATION {
   A_TANH,
   A_RELU,
   A_SIGM
 };
 
-struct ANNConfig {
+struct __declspec (dllexport) ANNConfig {
   vector<int> topology;
   double bias;
   double learningRate;
