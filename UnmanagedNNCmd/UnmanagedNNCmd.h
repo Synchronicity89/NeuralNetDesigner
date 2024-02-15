@@ -15,4 +15,4 @@ Matrix oneHot(int size, int index);
 
 string LinearAlgebra(std::vector<std::vector<double>>& y_data, std::vector<std::vector<double>>& x_data);
 
-int main();
+int main(int argc, char* argv[]);
